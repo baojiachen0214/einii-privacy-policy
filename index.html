@@ -39,15 +39,16 @@
       background-size: 42px 42px;
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.22), transparent 82%);
     }
-    .shell { position: relative; max-width: 760px; margin: 0 auto; padding: 32px 22px 88px; }
+    .shell { position: relative; max-width: 760px; margin: 0 auto; padding: 30px 22px 88px; }
     .topbar {
+      position: relative;
       display: grid;
-      gap: 14px;
-      padding: 0 0 24px;
+      gap: 12px;
+      padding: 0 0 20px;
       margin-bottom: 18px;
       border-bottom: 1px solid var(--line);
     }
-    .brand { display: grid; gap: 10px; }
+    .brand { display: grid; gap: 8px; }
     .brand .eyebrow {
       font-size: 11px;
       letter-spacing: 0.24em;
@@ -57,13 +58,13 @@
     }
     .title-row {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 16px;
     }
     .brand h1 {
       margin: 0;
-      font-size: clamp(30px, 4vw, 46px);
+      font-size: clamp(28px, 3.7vw, 44px);
       line-height: 0.98;
       letter-spacing: -0.04em;
       font-weight: 600;
@@ -72,8 +73,8 @@
     .meta-line {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 18px;
-      font-size: 13px;
+      gap: 8px 16px;
+      font-size: 12px;
       line-height: 1.6;
       color: var(--muted);
     }
@@ -91,19 +92,20 @@
       padding: 10px 14px 10px 12px;
       font: inherit;
       flex-shrink: 0;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.65) inset;
     }
     .lang-fab:hover { background: rgba(255,252,246,1); }
     .lang-fab svg { width: 18px; height: 18px; display: block; }
     .lang-fab .label { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
     .lang-popover {
-      width: min(280px, 100%);
-      margin: 2px 0 6px auto;
+      width: min(300px, 100%);
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: rgba(255, 252, 246, 0.94);
+      background: rgba(255, 252, 246, 0.96);
+      box-shadow: 0 18px 44px rgba(27, 25, 22, 0.10);
+      backdrop-filter: blur(10px);
     }
-    .lang-popover[hidden] { display: none; }
     .lang-popover-title {
       font-size: 11px;
       letter-spacing: 0.18em;
@@ -133,21 +135,35 @@
       font-weight: 600;
     }
     .panel {
-      background: var(--surface);
-      border: 1px solid rgba(27, 25, 22, 0.06);
-      border-radius: 22px;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
       box-shadow: none;
     }
     .language-inline {
-      margin: 0;
-      display: flex;
-      justify-content: flex-end;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: min(300px, 100%);
+      display: block;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.985);
+      pointer-events: none;
+      visibility: hidden;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
+      z-index: 20;
     }
-    .language-inline[hidden] { display: none; }
+    .language-inline[data-open="true"] {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      visibility: visible;
+      transition: opacity 180ms ease, transform 180ms ease, visibility 0s;
+    }
     .layout { display: block; }
     .content { display: grid; gap: 0; }
     .policy-section {
-      padding: 28px 0;
+      padding: 30px 0;
       border-bottom: 1px solid rgba(27, 25, 22, 0.08);
     }
     .section-title {
@@ -164,7 +180,7 @@
       color: var(--text);
       font-weight: 600;
     }
-    .policy-section p { margin: 0 0 12px; color: #312d27; line-height: 1.95; font-size: 16px; }
+    .policy-section p { margin: 0 0 12px; color: #312d27; line-height: 2; font-size: 16px; }
     .table-panel { padding: 18px 0 8px; }
     .table-panel h3 { margin: 0 0 14px; font-size: 18px; font-weight: 600; }
     .policy-table { width: 100%; border-collapse: collapse; }
@@ -177,8 +193,12 @@
       .topbar { gap: 12px; }
       .title-row { flex-direction: column; }
       .lang-fab { align-self: flex-start; }
-      .language-inline { justify-content: flex-start; }
-      .lang-popover { width: 100%; margin-left: 0; }
+      .language-inline {
+        right: auto;
+        left: 0;
+        width: 100%;
+      }
+      .lang-popover { width: 100%; }
     }
   </style>
 </head>
@@ -199,8 +219,8 @@
         <div class="meta-line" id="meta-line"></div>
       </div>
     </header>
-    <div class="language-inline" id="language-inline" hidden>
-      <div class="lang-popover" id="language-popover" hidden>
+    <div class="language-inline" id="language-inline" aria-hidden="true">
+      <div class="lang-popover" id="language-popover">
         <div class="lang-popover-title">Translate</div>
         <div class="lang-menu" id="language-menu"></div>
       </div>
@@ -268,19 +288,19 @@
     }
 
     function openLanguagePopover() {
-      languageInline.hidden = false;
-      languagePopover.hidden = false;
+      languageInline.dataset.open = 'true';
+      languageInline.setAttribute('aria-hidden', 'false');
       languageToggle.setAttribute('aria-expanded', 'true');
     }
 
     function closeLanguagePopover() {
-      languageInline.hidden = true;
-      languagePopover.hidden = true;
+      delete languageInline.dataset.open;
+      languageInline.setAttribute('aria-hidden', 'true');
       languageToggle.setAttribute('aria-expanded', 'false');
     }
 
     function toggleLanguagePopover() {
-      if (languagePopover.hidden) {
+      if (languageInline.dataset.open !== 'true') {
         openLanguagePopover();
       } else {
         closeLanguagePopover();
@@ -353,10 +373,16 @@
       toggleLanguagePopover();
     });
     document.addEventListener('click', (event) => {
-      if (languagePopover.hidden) return;
+      if (languageInline.dataset.open !== 'true') return;
       const target = event.target;
       if (languagePopover.contains(target) || languageToggle.contains(target)) return;
       closeLanguagePopover();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && languageInline.dataset.open === 'true') {
+        closeLanguagePopover();
+        languageToggle.focus();
+      }
     });
   </script>
 </body>
