@@ -40,41 +40,39 @@
       background-size: 36px 36px;
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.28), transparent 85%);
     }
-    .shell { position: relative; max-width: 1100px; margin: 0 auto; padding: 24px 20px 72px; }
+    .shell { position: relative; max-width: 860px; margin: 0 auto; padding: 28px 20px 72px; }
     .topbar {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 10px 0 14px;
-      border-bottom: 1px solid rgba(16,32,51,0.08);
-      margin-bottom: 18px;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+      padding: 0 0 16px;
+      border-bottom: 1px solid rgba(16,32,51,0.10);
+      margin-bottom: 24px;
     }
     .brand { display: grid; gap: 4px; }
     .brand .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
-    .brand h1 { margin: 0; font-size: clamp(18px, 2vw, 24px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; }
+    .brand h1 { margin: 0; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.08; letter-spacing: -0.03em; font-weight: 600; }
     .header-actions { display: flex; align-items: center; gap: 10px; }
     .lang-fab {
-      border: 1px solid var(--line);
+      border: 1px solid rgba(16,32,51,0.12);
       border-radius: 999px;
-      background: rgba(255, 253, 248, 0.92);
+      background: rgba(255, 253, 248, 0.88);
       color: var(--text);
-      box-shadow: var(--shadow);
       display: inline-flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      padding: 10px 14px 10px 12px;
+      padding: 9px 14px 9px 12px;
       font: inherit;
     }
-    .lang-fab:hover { transform: translateY(-1px); }
+    .lang-fab:hover { background: rgba(255,253,248,1); }
     .lang-fab svg { width: 18px; height: 18px; display: block; }
     .lang-fab .label { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
     .lang-popover {
-      width: min(320px, 100%);
+      width: min(280px, 100%);
       margin: 0 0 16px auto;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 253, 248, 0.96);
-      box-shadow: var(--shadow);
+      padding: 12px;
+      border: 1px solid rgba(16,32,51,0.10);
+      border-radius: 14px;
+      background: rgba(255, 253, 248, 0.94);
     }
     .lang-popover[hidden] { display: none; }
     .lang-popover-title {
@@ -106,53 +104,44 @@
       font-weight: 600;
     }
     .panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
-    .layout { margin-top: 18px; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; }
-    .toc { position: sticky; top: 98px; padding: 18px; }
-    .toc h3 { margin: 0 0 14px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-    .toc nav { display: grid; gap: 8px; }
-    .toc a {
-      display: block;
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--text);
-      text-decoration: none;
-      border: 1px solid transparent;
-      transition: 160ms ease;
-      line-height: 1.35;
-      font-size: 14px;
+    .language-inline {
+      margin: 0 0 22px;
+      padding: 0 0 16px;
+      border-bottom: 1px solid rgba(16,32,51,0.08);
+      display: flex;
+      justify-content: flex-end;
     }
-    .toc a:hover { background: rgba(15,118,110,0.08); border-color: rgba(15,118,110,0.18); }
-    .content { display: grid; gap: 18px; }
-    section.policy-section, .table-panel { padding: 24px; }
-    .section-title { margin: 0 0 12px; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.15; letter-spacing: -0.03em; }
-    .subsection-title { margin: 20px 0 10px; font-size: 18px; line-height: 1.25; color: #13253d; }
-    .policy-section p { margin: 0 0 12px; color: #26364a; line-height: 1.8; font-size: 16px; }
-    .table-panel h3 { margin: 0 0 14px; font-size: 20px; }
-    .policy-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 18px; background: rgba(255,255,255,0.94); }
-    .policy-table th, .policy-table td { text-align: left; vertical-align: top; padding: 14px 14px; border-bottom: 1px solid rgba(16,32,51,0.10); }
-    .policy-table th { background: rgba(15,118,110,0.08); color: #123; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+    .language-inline[hidden] { display: none; }
+    .layout { display: block; }
+    .content { display: grid; gap: 0; }
+    .policy-section { padding: 22px 0; border-bottom: 1px solid rgba(16,32,51,0.08); }
+    .section-title { margin: 0 0 10px; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.14; letter-spacing: -0.03em; font-weight: 600; }
+    .subsection-title { margin: 18px 0 8px; font-size: 17px; line-height: 1.25; color: var(--text); font-weight: 600; }
+    .policy-section p { margin: 0 0 10px; color: #2b2622; line-height: 1.92; font-size: 16px; }
+    .table-panel { padding: 18px 0 8px; }
+    .table-panel h3 { margin: 0 0 14px; font-size: 18px; font-weight: 600; }
+    .policy-table { width: 100%; border-collapse: collapse; }
+    .policy-table th, .policy-table td { text-align: left; vertical-align: top; padding: 11px 10px; border-bottom: 1px solid rgba(16,32,51,0.10); }
+    .policy-table th { color: var(--muted); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; }
     .policy-table tr:last-child td { border-bottom: none; }
-    .table-scroll { overflow-x: auto; border-radius: 18px; border: 1px solid var(--line); }
-    .note { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.6; }
-    .fade-in { animation: fade-in 420ms ease-out; }
-    @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .table-scroll { overflow-x: auto; }
+    .note { margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.7; }
     @media (max-width: 920px) {
-      .layout { grid-template-columns: 1fr; }
-      .toc { position: static; }
       .topbar { flex-direction: column; align-items: stretch; }
       .header-actions { justify-content: flex-start; }
+      .language-inline { justify-content: flex-start; }
       .lang-popover { width: 100%; margin-left: 0; }
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <header class="topbar panel">
+    <header class="topbar">
       <div class="brand">
         <div class="eyebrow">Einii</div>
         <h1 id="page-title"></h1>
@@ -166,9 +155,11 @@
         </button>
       </div>
     </header>
-    <div class="lang-popover panel" id="language-popover" hidden>
-      <div class="lang-popover-title">Translate</div>
-      <div class="lang-menu" id="language-menu"></div>
+    <div class="language-inline" id="language-inline" hidden>
+      <div class="lang-popover" id="language-popover" hidden>
+        <div class="lang-popover-title">Translate</div>
+        <div class="lang-menu" id="language-menu"></div>
+      </div>
     </div>
     <main id="app"></main>
   </div>
@@ -180,6 +171,7 @@
 
     const pageTitle = document.getElementById('page-title');
     const languageToggle = document.getElementById('language-toggle');
+    const languageInline = document.getElementById('language-inline');
     const languagePopover = document.getElementById('language-popover');
     const languageMenu = document.getElementById('language-menu');
     const app = document.getElementById('app');
@@ -231,11 +223,13 @@
     }
 
     function openLanguagePopover() {
+      languageInline.hidden = false;
       languagePopover.hidden = false;
       languageToggle.setAttribute('aria-expanded', 'true');
     }
 
     function closeLanguagePopover() {
+      languageInline.hidden = true;
       languagePopover.hidden = true;
       languageToggle.setAttribute('aria-expanded', 'false');
     }
@@ -295,19 +289,11 @@
       document.title = `${data.meta.title} · Einii`;
       pageTitle.textContent = `Einii ${data.meta.title}`;
       setupLanguageMenu();
-      const tocTitle = data.ui.table_of_contents;
-      const toc = data.sections.map((section, index) => `<a href="#section-${index + 1}">${escapeHtml(section.title)}</a>`).join('');
       const sections = data.sections.map((section, index) => sectionHtml(section, index, lang)).join('');
       app.innerHTML = `
-        <div class="layout">
-          <aside class="toc panel fade-in">
-            <h3>${escapeHtml(tocTitle)}</h3>
-            <nav>${toc}</nav>
-          </aside>
-          <div class="content">
-            ${sections}
-          </div>
-        </div>
+        <section class="content">
+          ${sections}
+        </section>
       `;
     }
 
