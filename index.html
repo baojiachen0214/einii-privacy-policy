@@ -42,42 +42,34 @@
     }
     .shell { position: relative; max-width: 1100px; margin: 0 auto; padding: 24px 20px 72px; }
     .topbar {
-      position: sticky; top: 14px; z-index: 20;
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(16,32,51,0.10);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
+      padding: 10px 0 14px;
+      border-bottom: 1px solid rgba(16,32,51,0.08);
+      margin-bottom: 18px;
     }
     .brand { display: grid; gap: 4px; }
     .brand .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
-    .brand h1 { margin: 0; font-size: clamp(20px, 2.3vw, 28px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; }
+    .brand h1 { margin: 0; font-size: clamp(18px, 2vw, 24px); line-height: 1.1; letter-spacing: -0.03em; font-weight: 600; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
     .lang-fab {
-      position: fixed;
-      top: 22px;
-      right: 22px;
-      z-index: 40;
-      width: 52px;
-      height: 52px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 253, 248, 0.95);
+      background: rgba(255, 253, 248, 0.92);
       color: var(--text);
       box-shadow: var(--shadow);
-      display: grid;
-      place-items: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
-      padding: 0;
+      padding: 10px 14px 10px 12px;
+      font: inherit;
     }
     .lang-fab:hover { transform: translateY(-1px); }
-    .lang-fab svg { width: 24px; height: 24px; display: block; }
+    .lang-fab svg { width: 18px; height: 18px; display: block; }
+    .lang-fab .label { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
     .lang-popover {
-      position: fixed;
-      top: 84px;
-      right: 22px;
-      z-index: 39;
-      width: min(260px, calc(100vw - 44px));
+      width: min(320px, 100%);
+      margin: 0 0 16px auto;
       padding: 14px;
       border: 1px solid var(--line);
       border-radius: 18px;
@@ -153,8 +145,8 @@
       .layout { grid-template-columns: 1fr; }
       .toc { position: static; }
       .topbar { flex-direction: column; align-items: stretch; }
-      .lang-fab { top: auto; bottom: 22px; right: 22px; }
-      .lang-popover { top: auto; bottom: 84px; right: 22px; }
+      .header-actions { justify-content: flex-start; }
+      .lang-popover { width: 100%; margin-left: 0; }
     }
   </style>
 </head>
@@ -165,12 +157,15 @@
         <div class="eyebrow">Einii</div>
         <h1 id="page-title"></h1>
       </div>
+      <div class="header-actions">
+        <button class="lang-fab" id="language-toggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Translate language">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6h8M8 4v2m3 0c-.7 3.6-2.8 6.8-5.8 9.1M7 16c1.5 1 3.1 1.8 4.9 2.4M12 18l3.5-7.5L19 18M13.4 15h3.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="label">Translate</span>
+        </button>
+      </div>
     </header>
-    <button class="lang-fab" id="language-toggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Translate language">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 6h8M8 4v2m3 0c-.7 3.6-2.8 6.8-5.8 9.1M7 16c1.5 1 3.1 1.8 4.9 2.4M12 18l3.5-7.5L19 18M13.4 15h3.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
     <div class="lang-popover panel" id="language-popover" hidden>
       <div class="lang-popover-title">Translate</div>
       <div class="lang-menu" id="language-menu"></div>
